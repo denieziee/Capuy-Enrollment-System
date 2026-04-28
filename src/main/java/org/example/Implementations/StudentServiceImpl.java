@@ -11,11 +11,12 @@ public class StudentServiceImpl implements IStudentService {
     @Override
     public void addStudent(Student student) {
         studentList.add(student);
+        System.out.println("Student added successfully: " + student.getName());
     }
 
     @Override
     public List<Student> getAllStudents() {
-        return new ArrayList<>(studentList); // Return a copy for safety
+        return new ArrayList<>(studentList);
     }
 
     @Override
@@ -23,13 +24,30 @@ public class StudentServiceImpl implements IStudentService {
         for (int i = 0; i < studentList.size(); i++) {
             if (studentList.get(i).getID().equals(student.getID())) {
                 studentList.set(i, student);
+                System.out.println("Student ID [" + student.getID() + "] updated.");
                 return;
             }
         }
+        System.out.println("Error: Student ID " + student.getID() + " not found.");
     }
 
     @Override
     public void removeStudent(String studentId) {
-        studentList.removeIf(s -> s.getID().equals(studentId));
+        boolean removed = studentList.removeIf(s -> s.getID().equals(studentId));
+        if (removed) {
+            System.out.println("Student ID [" + studentId + "] removed.");
+        } else {
+            System.out.println("Error: Student ID " + studentId + " not found.");
+        }
+    }
+
+    @Override
+    public Student getStudentById(String studentId) {
+        for (Student s : studentList) {
+            if (s.getID().equalsIgnoreCase(studentId)) {
+                return s;
+            }
+        }
+        return null;
     }
 }
