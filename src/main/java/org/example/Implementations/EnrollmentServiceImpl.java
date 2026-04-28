@@ -13,20 +13,20 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
 
         // 1. Check if the section is already at or over capacity
         if (section.getEnrolledStudents().size() >= section.getMaxCapacity()) {
-            throw new SectionFullException("🛑 Enrollment Failed: Section [" +
+            throw new SectionFullException("Failed: Section [" +
                     section.getSectionName() + "] has reached its limit of " +
                     section.getMaxCapacity() + " students.");
         }
 
         // 2. Logic to prevent double enrollment
         if (section.getEnrolledStudents().contains(student)) {
-            System.out.println("⚠️ Notice: Student " + student.getName() + " is already in this section.");
+            System.out.println(" Notice: Student " + student.getName() + " is already in this section.");
             return;
         }
 
         // 3. Add student if validation passes
         section.getEnrolledStudents().add(student);
-        System.out.println("✅ Success: " + student.getName() + " enrolled in " + section.getSectionName());
+        System.out.println("Success: " + student.getName() + " enrolled in " + section.getSectionName());
     }
 
     @Override
@@ -39,7 +39,7 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
         }
 
         for (Section section : dept.getSections()) {
-            System.out.println("\n📍 Section: " + section.getSectionName() +
+            System.out.println("\nSection: " + section.getSectionName() +
                     " [" + section.getEnrolledStudents().size() + "/" + section.getMaxCapacity() + "]");
 
             String instructor = (section.getAssignedInstructor() != null)
