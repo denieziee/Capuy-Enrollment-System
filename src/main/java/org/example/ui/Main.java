@@ -1,4 +1,4 @@
-package org.example;
+package org.example.ui;
 
 import org.example.Entities.*;
 import org.example.Implementations.*;
