@@ -28,7 +28,7 @@ public class Main {
             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
             System.out.print("\n⋆⭒˚.⋆⋆⭒˚.⋆⋆⭒˚ MENU ⋆⭒˚.⋆⋆⭒˚.⋆⋆⭒\n" +
                     "1. Student Registration\n" +
-                    "2. Instructor Registration\n" + // Inserted below Student
+                    "2. Instructor Registration\n" +
                     "3. Course Registration\n" +
                     "4. Enrollment & Hierarchy\n" +
                     "5. Tuition Fee Payment\n" +
@@ -47,7 +47,7 @@ public class Main {
                         "4. Remove Student\n" +
                         "★ Answer ★ : ");
                 int InputStudentReg = scan.nextInt();
-                scan.nextLine(); // Buffer clear
+                scan.nextLine();
                 switch (InputStudentReg) {
                     case 1:
                         System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
@@ -88,7 +88,7 @@ public class Main {
                         break;
                 }
 
-            } else if (input1 == 2) { // New Instructor Registration Section
+            } else if (input1 == 2) {
                 System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                 System.out.print("\n⋆⭒˚.⋆ Instructor Registration ⋆⭒˚.⋆\n" +
                         "Pick a number.\n" +
