@@ -14,6 +14,7 @@ public class Main {
 
         // Services
         IStudentService studentRegistration = new StudentServiceImpl();
+        IInstructorService instructorRegistration = new InstructorServiceImpl(); // Added
         ICourseService courseRegistration = new CourseServiceImpl();
         ITuitionService feePayment = new TuitionServiceImpl();
         IEnrollmentService enrollmentService = new EnrollmentServiceImpl();
@@ -27,10 +28,11 @@ public class Main {
             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
             System.out.print("\n⋆⭒˚.⋆⋆⭒˚.⋆⋆⭒˚ MENU ⋆⭒˚.⋆⋆⭒˚.⋆⋆⭒\n" +
                     "1. Student Registration\n" +
-                    "2. Course Registration\n" +
-                    "3. Enrollment & Hierarchy\n" +
-                    "4. Tuition Fee Payment\n" +
-                    "5. Exit\n" +
+                    "2. Instructor Registration\n" + // Inserted below Student
+                    "3. Course Registration\n" +
+                    "4. Enrollment & Hierarchy\n" +
+                    "5. Tuition Fee Payment\n" +
+                    "6. Exit\n" +
                     "★ Answer ★ : ");
 
             int input1 = scan.nextInt();
@@ -86,7 +88,50 @@ public class Main {
                         break;
                 }
 
-            } else if (input1 == 2) {
+            } else if (input1 == 2) { // New Instructor Registration Section
+                System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
+                System.out.print("\n⋆⭒˚.⋆ Instructor Registration ⋆⭒˚.⋆\n" +
+                        "Pick a number.\n" +
+                        "1. Save Instructor\n" +
+                        "2. Display Instructor\n" +
+                        "3. Assign Instructor to Section\n" +
+                        "★ Answer ★ : ");
+                int InputInstReg = scan.nextInt();
+                scan.nextLine(); // Buffer clear
+                switch (InputInstReg) {
+                    case 1:
+                        System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
+                        System.out.println("\nSave Instructor.");
+                        System.out.print("Enter Instructor ID: ");
+                        String instID = scan.nextLine();
+                        System.out.print("Enter Instructor Name: ");
+                        String instName = scan.nextLine();
+                        System.out.print("Enter Specialty Course: ");
+                        String instCourse = scan.nextLine();
+                        instructorRegistration.addInstructor(new Instructor(instID, instName, instCourse));
+                        break;
+                    case 2:
+                        System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
+                        System.out.println("\nDisplay Instructors.");
+                        instructorRegistration.getAllInstructors().forEach(System.out::println);
+                        break;
+                    case 3:
+                        System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
+                        System.out.print("Enter Instructor ID: ");
+                        String targetID = scan.nextLine();
+                        Instructor targetInst = instructorRegistration.getInstructorDetails(targetID);
+                        if (targetInst != null) {
+                            instructorRegistration.assignInstructorToSection(targetInst, bsitIT2C);
+                        } else {
+                            System.out.println("Instructor not found.");
+                        }
+                        break;
+                    default:
+                        System.out.println("Error.");
+                        break;
+                }
+
+            } else if (input1 == 3) {
                 System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                 System.out.print("\nCourse Registration:\n" +
                         "Pick a number.\n" +
@@ -137,7 +182,7 @@ public class Main {
                         break;
                 }
 
-            } else if (input1 == 3) {
+            } else if (input1 == 4) {
                 System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                 System.out.print("\nEnrollment & Hierarchy:\n" +
                         "1. Enroll Student in BSIT-IT2C\n" +
@@ -162,7 +207,7 @@ public class Main {
                     enrollmentService.viewDepartmentHierarchy(ccsDept);
                 }
 
-            } else if (input1 == 4) {
+            } else if (input1 == 5) {
                 System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                 System.out.print("\n⋆⭒˚.⋆ Tuition Fee Payment ⋆⭒˚.⋆\n");
 
@@ -183,7 +228,7 @@ public class Main {
                     System.out.println("Student not found.");
                 }
 
-            } else if (input1 == 5) {
+            } else if (input1 == 6) {
                 System.out.println("Exiting System...");
                 System.exit(0);
 
