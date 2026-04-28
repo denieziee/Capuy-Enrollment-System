@@ -141,7 +141,7 @@ public class Main {
                         "4. Remove Course\n" +
                         "Answer: ");
                 int InputCourseReg = scan.nextInt();
-                scan.nextLine(); // Buffer clear
+                scan.nextLine();
                 switch (InputCourseReg) {
                     case 1:
                         System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
