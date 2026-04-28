@@ -14,7 +14,7 @@ public class Main {
 
         // Services
         IStudentService studentRegistration = new StudentServiceImpl();
-        IInstructorService instructorRegistration = new InstructorServiceImpl(); // Added
+        IInstructorService instructorRegistration = new InstructorServiceImpl();
         ICourseService courseRegistration = new CourseServiceImpl();
         ITuitionService feePayment = new TuitionServiceImpl();
         IEnrollmentService enrollmentService = new EnrollmentServiceImpl();
@@ -68,7 +68,11 @@ public class Main {
                     case 3:
                         System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                         System.out.println("\nUpdate Student.");
-                        System.out.print("Enter Student ID: ");
+                        // Automatic Display before Update
+                        System.out.println("Current Students:");
+                        studentRegistration.getAllStudents().forEach(System.out::println);
+
+                        System.out.print("\nEnter Student ID to Update: ");
                         String newStudID = scan.nextLine();
                         System.out.print("Enter New Name: ");
                         String newName = scan.nextLine();
@@ -79,7 +83,11 @@ public class Main {
                     case 4:
                         System.out.println("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                         System.out.println("Remove Student.");
-                        System.out.print("Enter Student ID: ");
+                        // Automatic Display before Removal
+                        System.out.println("Current Students:");
+                        studentRegistration.getAllStudents().forEach(System.out::println);
+
+                        System.out.print("\nEnter Student ID to Remove: ");
                         String delStudID = scan.nextLine();
                         studentRegistration.removeStudent(delStudID);
                         break;
@@ -97,7 +105,7 @@ public class Main {
                         "3. Assign Instructor to Section\n" +
                         "★ Answer ★ : ");
                 int InputInstReg = scan.nextInt();
-                scan.nextLine(); // Buffer clear
+                scan.nextLine();
                 switch (InputInstReg) {
                     case 1:
                         System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
@@ -116,8 +124,9 @@ public class Main {
                         instructorRegistration.getAllInstructors().forEach(System.out::println);
                         break;
                     case 3:
-                        System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                        System.out.print("Enter Instructor ID: ");
+                        System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────\n");
+                        instructorRegistration.getAllInstructors().forEach(System.out::println);
+                        System.out.print("\nEnter Instructor ID to Assign: ");
                         String targetID = scan.nextLine();
                         Instructor targetInst = instructorRegistration.getInstructorDetails(targetID);
                         if (targetInst != null) {
@@ -141,7 +150,7 @@ public class Main {
                         "4. Remove Course\n" +
                         "Answer: ");
                 int InputCourseReg = scan.nextInt();
-                scan.nextLine(); // Buffer clear
+                scan.nextLine();
                 switch (InputCourseReg) {
                     case 1:
                         System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
@@ -162,7 +171,11 @@ public class Main {
                     case 3:
                         System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                         System.out.println("Update Course.");
-                        System.out.print("Enter Course ID: ");
+                        // Automatic Display before Update
+                        System.out.println("Current Courses:");
+                        courseRegistration.getAllCourses().forEach(System.out::println);
+
+                        System.out.print("\nEnter Course ID to Update: ");
                         String updateCourseID = scan.nextLine();
                         System.out.print("Enter New Name: ");
                         String updateName = scan.nextLine();
@@ -173,7 +186,11 @@ public class Main {
                     case 4:
                         System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                         System.out.println("Remove Course.");
-                        System.out.print("Enter Course ID: ");
+                        // Automatic Display before Removal
+                        System.out.println("Current Courses:");
+                        courseRegistration.getAllCourses().forEach(System.out::println);
+
+                        System.out.print("\nEnter Course ID to Remove: ");
                         String delCourseID = scan.nextLine();
                         courseRegistration.removeCourse(delCourseID);
                         break;
@@ -191,7 +208,10 @@ public class Main {
                 int InputEnroll = scan.nextInt();
                 scan.nextLine();
                 if (InputEnroll == 1) {
-                    System.out.print("Enter Student ID: ");
+                    System.out.println("Available Students:");
+                    studentRegistration.getAllStudents().forEach(System.out::println);
+
+                    System.out.print("\nEnter Student ID: ");
                     String sid = scan.nextLine();
                     Student s = studentRegistration.getStudentById(sid);
                     if (s != null) {
@@ -211,7 +231,8 @@ public class Main {
                 System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                 System.out.print("\n⋆⭒˚.⋆ Tuition Fee Payment ⋆⭒˚.⋆\n");
 
-                System.out.print("Enter Student ID: ");
+                studentRegistration.getAllStudents().forEach(System.out::println);
+                System.out.print("\nEnter Student ID for Payment: ");
                 scan.nextLine();
                 String sid = scan.nextLine();
                 Student s = studentRegistration.getStudentById(sid);
