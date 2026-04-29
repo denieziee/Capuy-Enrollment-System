@@ -11,7 +11,7 @@ public class StudentServiceImpl implements IStudentService {
     @Override
     public void addStudent(Student student) {
         studentList.add(student);
-        System.out.println("Student added successfully: " + student.getName());
+        System.out.println("Student added successfully");
     }
 
     @Override
@@ -21,14 +21,23 @@ public class StudentServiceImpl implements IStudentService {
 
     @Override
     public void updateStudent(Student student) {
+        // 1. Validation Logic
+        boolean found = false;
         for (int i = 0; i < studentList.size(); i++) {
             if (studentList.get(i).getID().equals(student.getID())) {
+                // 2. Perform the Update
                 studentList.set(i, student);
-                System.out.println("Student ID [" + student.getID() + "] updated.");
-                return;
+                found = true;
+                break;
             }
         }
-        System.out.println("Error: Student ID " + student.getID() + " not found.");
+
+        // 3. Feedback Logic
+        if (found) {
+            System.out.println("Success: Student record updated.");
+        } else {
+            System.out.println("Error: Cannot update. Student ID [" + student.getID() + "] does not exist.");
+        }
     }
 
     @Override
