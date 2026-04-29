@@ -11,7 +11,7 @@ public class StudentServiceImpl implements IStudentService {
     @Override
     public void addStudent(Student student) {
         studentList.add(student);
-        System.out.println("Student added successfully");
+        System.out.println("\nStudent added successfully!");
     }
 
     @Override

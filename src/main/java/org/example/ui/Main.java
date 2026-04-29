@@ -29,6 +29,7 @@ public class Main {
             try {
                 System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                 System.out.print("\n⋆⭒˚.⋆⋆⭒˚.⋆⋆⭒˚ MENU ⋆⭒˚.⋆⋆⭒˚.⋆⋆⭒\n" +
+                        "\n" +
                         "1. Student Registration\n" +
                         "2. Instructor Registration\n" +
                         "3. Course Registration\n" +
@@ -43,18 +44,19 @@ public class Main {
                 if (input1 == 1) {
                     System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                     System.out.print("\n⋆⭒˚.⋆ Student Registration ⋆⭒˚.⋆\n" +
-                            "Pick a number.\n" +
+                            "\n" +
                             "1. Save Student\n" +
                             "2. Display Student\n" +
                             "3. Update Student\n" +
                             "4. Remove Student\n" +
+                            "5. Back\n" +
                             "★ Answer ★ : ");
                     int InputStudentReg = scan.nextInt();
                     scan.nextLine();
                     switch (InputStudentReg) {
                         case 1:
                             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                            System.out.println("\nSave Student.");
+                            System.out.println("\nSave Student.\n");
                             System.out.print("Enter Student ID: ");
                             String studID = scan.nextLine();
                             System.out.print("Enter Student Name: ");
@@ -65,12 +67,12 @@ public class Main {
                             break;
                         case 2:
                             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                            System.out.println("\nDisplay Student.");
+                            System.out.println("\nDisplay Student.\n");
                             studentRegistration.getAllStudents().forEach(System.out::println);
                             break;
                         case 3:
                             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                            System.out.println("\nUpdate Student.");
+                            System.out.println("\nUpdate Student.\n");
                             studentRegistration.getAllStudents().forEach(System.out::println);
 
                             System.out.print("\nEnter Student ID to Update: ");
@@ -89,11 +91,14 @@ public class Main {
                             break;
                         case 4:
                             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                            System.out.println("Remove Student.");
+                            System.out.println("Remove Student.\n");
                             studentRegistration.getAllStudents().forEach(System.out::println);
                             System.out.print("\nEnter Student ID to Remove: ");
                             String delStudID = scan.nextLine();
                             studentRegistration.removeStudent(delStudID);
+                            break;
+                        case 5:
+                            System.out.println("\nShalom!");
                             break;
                         default:
                             System.out.println("Error.");
@@ -103,17 +108,18 @@ public class Main {
                 } else if (input1 == 2) {
                     System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                     System.out.print("\n⋆⭒˚.⋆ Instructor Registration ⋆⭒˚.⋆\n" +
-                            "Pick a number.\n" +
+                            "\n" +
                             "1. Save Instructor\n" +
                             "2. Display Instructor\n" +
                             "3. Assign Instructor to Section\n" +
+                            "4. Back\n" +
                             "★ Answer ★ : ");
                     int InputInstReg = scan.nextInt();
                     scan.nextLine();
                     switch (InputInstReg) {
                         case 1:
                             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                            System.out.println("\nSave Instructor.");
+                            System.out.println("\nSave Instructor.\n");
                             System.out.print("Enter Instructor ID: ");
                             String instID = scan.nextLine();
                             System.out.print("Enter Instructor Name: ");
@@ -124,11 +130,12 @@ public class Main {
                             break;
                         case 2:
                             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                            System.out.println("\nDisplay Instructors.");
+                            System.out.println("\nDisplay Instructors.\n");
                             instructorRegistration.getAllInstructors().forEach(System.out::println);
                             break;
                         case 3:
                             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────\n");
+                            System.out.println("\nAssign Instructor to Section\n");
                             instructorRegistration.getAllInstructors().forEach(System.out::println);
                             System.out.print("\nEnter Instructor ID to Assign: ");
                             String targetID = scan.nextLine();
@@ -139,6 +146,9 @@ public class Main {
                                 System.out.println("Instructor not found.");
                             }
                             break;
+                        case 4:
+                            System.out.println("\nShalom!");
+                            break;
                         default:
                             System.out.println("Error.");
                             break;
@@ -147,18 +157,19 @@ public class Main {
                 } else if (input1 == 3) {
                     System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                     System.out.print("\nCourse Registration:\n" +
-                            "Pick a number.\n" +
+                            "\n" +
                             "1. Save Course\n" +
                             "2. Display Course\n" +
                             "3. Update Course\n" +
                             "4. Remove Course\n" +
+                            "5. Back\n" +
                             "Answer: ");
                     int InputCourseReg = scan.nextInt();
                     scan.nextLine();
                     switch (InputCourseReg) {
                         case 1:
                             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                            System.out.println("\nSave Course.");
+                            System.out.println("\nSave Course.\n");
                             System.out.print("Enter Course ID: ");
                             String courseID = scan.nextLine();
                             System.out.print("Enter Course Name: ");
@@ -169,12 +180,12 @@ public class Main {
                             break;
                         case 2:
                             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                            System.out.println("\nDisplay Course.");
+                            System.out.println("\nDisplay Course.\n");
                             courseRegistration.getAllCourses().forEach(System.out::println);
                             break;
                         case 3:
                             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                            System.out.println("Update Course.");
+                            System.out.println("Update Course.\n");
                             courseRegistration.getAllCourses().forEach(System.out::println);
                             System.out.print("\nEnter Course ID to Update: ");
                             String updateCourseID = scan.nextLine();
@@ -186,11 +197,14 @@ public class Main {
                             break;
                         case 4:
                             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                            System.out.println("Remove Course.");
+                            System.out.println("Remove Course.\n");
                             courseRegistration.getAllCourses().forEach(System.out::println);
                             System.out.print("\nEnter Course ID to Remove: ");
                             String delCourseID = scan.nextLine();
                             courseRegistration.removeCourse(delCourseID);
+                            break;
+                        case 5:
+                            System.out.println("\nShalom!");
                             break;
                         default:
                             System.out.println("Error.");
@@ -206,7 +220,7 @@ public class Main {
                     int InputEnroll = scan.nextInt();
                     scan.nextLine();
                     if (InputEnroll == 1) {
-                        System.out.println("Available Students:");
+                        System.out.println("Available Students:\n");
                         studentRegistration.getAllStudents().forEach(System.out::println);
                         System.out.print("\nEnter Student ID: ");
                         String sid = scan.nextLine();
@@ -227,7 +241,10 @@ public class Main {
                 } else if (input1 == 5) {
                     System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                     System.out.print("\n⋆⭒˚.⋆ Tuition Fee Payment ⋆⭒˚.⋆\n");
+                    System.out.print("\nList of Students.");
+                    System.out.print("\n_______________________________");
                     studentRegistration.getAllStudents().forEach(System.out::println);
+                    System.out.print("\n_______________________________");
                     System.out.print("\nEnter Student ID for Payment: ");
                     String sid = scan.nextLine();
                     Student s = studentRegistration.getStudentById(sid);
