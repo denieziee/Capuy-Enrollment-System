@@ -1,5 +1,3 @@
-package org.example.tests;
-
 import org.example.Entities.*;
 import org.example.Implementations.*;
 import org.example.Interfaces.*;

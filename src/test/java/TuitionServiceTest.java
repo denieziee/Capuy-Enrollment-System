@@ -1,4 +1,10 @@
-package org.example.tests;
+import org.example.Entities.TuitionFeePayment;
+import org.example.Implementations.TuitionServiceImpl;
+import org.example.Interfaces.ITuitionService;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+
 
 public class TuitionServiceTest {
 

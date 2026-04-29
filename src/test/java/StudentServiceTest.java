@@ -1,4 +1,8 @@
-package org.example.tests;
+import org.example.Entities.Student;
+import org.example.Implementations.StudentServiceImpl;
+import org.example.Interfaces.IStudentService;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StudentServiceTest {
 
