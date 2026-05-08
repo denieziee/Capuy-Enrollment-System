@@ -270,9 +270,13 @@ public class Main {
                     System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                     System.out.println("Error: Invalid Selection.\n");
                 }
-            } catch (InputMismatchException | DuplicateIdException e) {
-                System.out.println("Error: Please enter a valid number.");
+            } catch (InputMismatchException e) {
+                System.out.println("\nPlease enter a number, try again.");
                 scan.nextLine();
+            } catch (DuplicateIdException e) {
+                System.out.println("\nRegistration Error: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("\nSomething went wrong: " + e.getLocalizedMessage());
             }
         }
     }
