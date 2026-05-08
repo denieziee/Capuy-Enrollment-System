@@ -1,6 +1,7 @@
 package org.example.ui;
 
 import org.example.Entities.*;
+import org.example.Exceptions.DuplicateIdException;
 import org.example.Implementations.*;
 import org.example.Interfaces.*;
 import org.example.Exceptions.SectionFullException;
@@ -269,7 +270,7 @@ public class Main {
                     System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                     System.out.println("Error: Invalid Selection.\n");
                 }
-            } catch (InputMismatchException e) {
+            } catch (InputMismatchException | DuplicateIdException e) {
                 System.out.println("Error: Please enter a valid number.");
                 scan.nextLine();
             }
