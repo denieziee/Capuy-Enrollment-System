@@ -1,5 +1,6 @@
 package org.example.Implementations;
 
+import org.example.Exceptions.DuplicateIdException;
 import org.example.Interfaces.IStudentService;
 import org.example.Entities.Student;
 import java.util.ArrayList;
@@ -9,7 +10,12 @@ public class StudentServiceImpl implements IStudentService {
     private List<Student> studentList = new ArrayList<>();
 
     @Override
-    public void addStudent(Student student) {
+    public void addStudent(Student student) throws DuplicateIdException {
+        for (Student s : studentList) {
+            if (s.getID().equalsIgnoreCase(student.getID())) {
+                throw new DuplicateIdException("ID is already exists!");
+            }
+        }
         studentList.add(student);
         System.out.println("\nStudent added successfully!");
     }
