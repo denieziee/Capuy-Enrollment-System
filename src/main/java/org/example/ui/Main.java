@@ -263,12 +263,12 @@ public class Main {
                     }
 
                 } else if (input1 == 6) {
-                    System.out.println("Exiting System...");
+                    System.out.println("\nExiting System...");
                     break;
 
                 } else {
                     System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                    System.out.println("Error: Invalid Selection.\n");
+                    System.out.println("\nError: Invalid Selection.\n");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("\nPlease enter a number, try again.");
