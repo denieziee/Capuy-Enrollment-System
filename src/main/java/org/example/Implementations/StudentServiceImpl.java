@@ -1,5 +1,6 @@
 package org.example.Implementations;
 
+import org.example.Exceptions.DuplicateIdException;
 import org.example.Interfaces.IStudentService;
 import org.example.Entities.Student;
 import java.util.ArrayList;
@@ -9,9 +10,14 @@ public class StudentServiceImpl implements IStudentService {
     private List<Student> studentList = new ArrayList<>();
 
     @Override
-    public void addStudent(Student student) {
+    public void addStudent(Student student) throws DuplicateIdException {
+        for (Student s : studentList) {
+            if (s.getID().equalsIgnoreCase(student.getID())) {
+                throw new DuplicateIdException("ID is already exists!");
+            }
+        }
         studentList.add(student);
-        System.out.println("Student added successfully: " + student.getName());
+        System.out.println("\nStudent added successfully!");
     }
 
     @Override
@@ -21,14 +27,23 @@ public class StudentServiceImpl implements IStudentService {
 
     @Override
     public void updateStudent(Student student) {
+        // 1. Validation Logic
+        boolean found = false;
         for (int i = 0; i < studentList.size(); i++) {
             if (studentList.get(i).getID().equals(student.getID())) {
+                // 2. Perform the Update
                 studentList.set(i, student);
-                System.out.println("Student ID [" + student.getID() + "] updated.");
-                return;
+                found = true;
+                break;
             }
         }
-        System.out.println("Error: Student ID " + student.getID() + " not found.");
+
+        // 3. Feedback Logic
+        if (found) {
+            System.out.println("Success: Student record updated.");
+        } else {
+            System.out.println("Error: Cannot update. Student ID [" + student.getID() + "] does not exist.");
+        }
     }
 
     @Override

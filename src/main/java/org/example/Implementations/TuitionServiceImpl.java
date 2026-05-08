@@ -16,19 +16,22 @@ public class TuitionServiceImpl implements ITuitionService {
     }
 
     @Override
-    public void makePayment(TuitionFeePayment paymentRecord, double amount) {
+    public void makePayment(TuitionFeePayment record, double amount) {
         if (amount <= 0) {
             System.out.println("Error: Payment amount must be greater than zero.");
             return;
         }
 
-        double currentPaid = paymentRecord.getBalancePaid();
-        double newPaidTotal = currentPaid + amount;
+        double currentBalance = record.getRemainingBalance();
+        double newBalance = currentBalance - amount;
 
-        paymentRecord.setBalancePaid(newPaidTotal);
-        paymentRecord.setRemainingBalance(paymentRecord.getTotalTuition() - newPaidTotal);
+        // it doesn't go below 0
+        if (newBalance < 0) {
+            newBalance = 0;
+        }
 
-        System.out.println("Payment processed: " + String.format("%.2f", amount));
+        record.setRemainingBalance(newBalance);
+        System.out.println("Payment processed: " + amount);
     }
 
     @Override
