@@ -11,4 +11,6 @@ public interface IInstructorService {
     void assignInstructorToSection(Instructor instructor, Section section);
     Instructor getInstructorDetails(String instructorId);
     List<Instructor> getAllInstructors();
+    void updateInstructor(Instructor instructor);
+    void deleteInstructor(Instructor instructor);
 }
