@@ -32,7 +32,7 @@ public class StudentServiceTest {
     }
 
     @Test
-    void testAddAndRetrieveStudent() throws DuplicateIdException {
+    void testAddAndRetrieveStudent() throws DuplicateIdException, InvalidIdFormatException {
         // ARRANGE
         IStudentService service = new StudentServiceImpl();
         Student s = new Student("101", "John Doe", "CS");
@@ -46,7 +46,7 @@ public class StudentServiceTest {
     }
 
     @Test
-    void testRemoveStudentDeletesFromList() throws DuplicateIdException {
+    void testRemoveStudentDeletesFromList() throws DuplicateIdException, InvalidIdFormatException {
         IStudentService service = new StudentServiceImpl();
         service.addStudent(new Student("102", "Jane Doe", "CS"));
 
