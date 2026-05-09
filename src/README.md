@@ -2,7 +2,7 @@
 - A Java-based
 - designed to handle student registration, course enrollment, instructor assignments, and tuition fee management.
 
-## Features
+## 🍙 Features
 * **Student & Instructor Management:** Full CRUD operations for student and faculty records.
 * **Department Hierarchy:** Organizes the college into sections with specific capacities.
 * **Enrollment:** * Enroll students into specific sections (handles `SectionFullException`).
