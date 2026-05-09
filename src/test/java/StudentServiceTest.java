@@ -1,5 +1,6 @@
 import org.example.Entities.Student;
 import org.example.Exceptions.DuplicateIdException;
+import org.example.Exceptions.InvalidIdFormatException;
 import org.example.Implementations.StudentServiceImpl;
 import org.example.Interfaces.IStudentService;
 import org.junit.jupiter.api.DisplayName;
@@ -7,6 +8,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StudentServiceTest {
+
+    @Test
+    @DisplayName("Should throw exception if ID is empty")
+    void testEmptyIdThrowsException() {
+        IStudentService service = new StudentServiceImpl();
+        Student emptyStudent = new Student("", "No Name", "IT");
+
+        assertThrows(InvalidIdFormatException.class, () -> {
+            service.addStudent(emptyStudent);
+        });
+    }
 
     @Test
     @DisplayName("Should throw exception if ID is not numeric")
