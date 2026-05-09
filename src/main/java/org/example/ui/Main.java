@@ -262,7 +262,7 @@ public class Main {
                 } else if (input1 == 4) {
                     System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                     System.out.print("\n⋆⭒˚.⋆ Department & Enrollment ⋆⭒˚.⋆\n" +
-                            "1. List of Sections\n" +
+                            "\n1. List of Sections\n" +
                             "2. Enroll Student to Section\n" +
                             "3. Register Student for Course\n" +
                             "4. View Department Hierarchy\n" +
@@ -273,6 +273,7 @@ public class Main {
 
                     switch (InputDept) {
                         case 1:
+                            System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                             System.out.println("\nAvailable Sections.");
                             for (Section sec : citeDept.getSections()) {
                                 System.out.println("• " + sec.getSectionName() + " | Slots: " +
@@ -289,6 +290,7 @@ public class Main {
                             Student sSec = studentRegistration.getStudentById(sidSec);
 
                             if (sSec != null) {
+                                System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                                 System.out.println("\nSelect Section to Enroll In:");
                                 for (int i = 0; i < citeDept.getSections().size(); i++) {
                                     Section sec = citeDept.getSections().get(i);
@@ -312,7 +314,7 @@ public class Main {
                             } else {
                                 System.out.println("Student not found.");
                             }
-
+                            break;
                         case 3:
                             System.out.println("\n--- Course Registration ---");
                             // 1. Pick Student
@@ -335,7 +337,7 @@ public class Main {
                                 if (choice > 0 && choice <= allCourses.size()) {
                                     enrollmentService.enrollStudentInCourse(sCourse, allCourses.get(choice - 1));
                                 }
-                            }
+                            } break;
                         case 4:
                             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                             enrollmentService.viewDepartmentHierarchy(citeDept);
