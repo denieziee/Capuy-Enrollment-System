@@ -186,12 +186,12 @@ public class Main {
                                 if (secChoice > 0 && secChoice <= citeDept.getSections().size()) {
                                     Section selectedSection = citeDept.getSections().get(secChoice - 1);
                                     instructorRegistration.assignInstructorToSection(targetInst, selectedSection);
-                                    System.out.println("✅ Success: " + targetInst.getName() + " assigned to " + selectedSection.getSectionName());
+                                    System.out.println("Success: " + targetInst.getName() + " assigned to " + selectedSection.getSectionName());
                                 } else {
-                                    System.out.println("🛑 Invalid Section Selection.");
+                                    System.out.println("Invalid Section Selection.");
                                 }
                             } else {
-                                System.out.println("🛑 Instructor not found.");
+                                System.out.println("Instructor not found.");
                             }
                             break;
                         case 6:
