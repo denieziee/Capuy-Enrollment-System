@@ -303,6 +303,8 @@ public class Main {
             } catch (InputMismatchException e) {
                 System.out.println("\nPlease enter a number, try again.");
                 scan.nextLine();
+            } catch (IllegalArgumentException e) {
+                System.out.println("\nError. " + e.getMessage());
             } catch (DuplicateIdException e) {
                 System.out.println("\nDuplicate Entry." + e.getMessage());
             } catch (Exception e) {
