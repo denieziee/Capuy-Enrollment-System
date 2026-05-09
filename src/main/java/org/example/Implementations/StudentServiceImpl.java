@@ -27,19 +27,14 @@ public class StudentServiceImpl implements IStudentService {
 
     @Override
     public void updateStudent(Student student) {
-        // 1. Validation Logic
         boolean found = false;
         for (int i = 0; i < studentList.size(); i++) {
             if (studentList.get(i).getID().equals(student.getID())) {
-                // 2. Perform the Update
                 studentList.set(i, student);
                 found = true;
                 break;
             }
-        }
-
-        // 3. Feedback Logic
-        if (found) {
+        } if (found) {
             System.out.println("Success: Student record updated.");
         } else {
             System.out.println("Error: Cannot update. Student ID [" + student.getID() + "] does not exist.");

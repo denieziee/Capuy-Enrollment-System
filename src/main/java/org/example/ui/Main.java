@@ -112,8 +112,10 @@ public class Main {
                             "\n" +
                             "1. Save Instructor\n" +
                             "2. Display Instructor\n" +
-                            "3. Assign Instructor to Section\n" +
-                            "4. Back\n" +
+                            "3. Update Instructor\n" +
+                            "4. Remove Instructor\n" +
+                            "5. Assign Instructor to Section\n" +
+                            "6. Back\n" +
                             "★ Answer ★ : ");
                     int InputInstReg = scan.nextInt();
                     scan.nextLine();
@@ -135,6 +137,32 @@ public class Main {
                             instructorRegistration.getAllInstructors().forEach(System.out::println);
                             break;
                         case 3:
+                            System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
+                            System.out.println("\nUpdate Instructor.\n");
+                            instructorRegistration.getAllInstructors().forEach(System.out::println);
+                            System.out.print("\nEnter Instructor ID to Update: ");
+                            String upID = scan.nextLine();
+
+                            Instructor existingInst = instructorRegistration.getInstructorDetails(upID);
+                            if (existingInst != null) {
+                                System.out.print("Enter New Name: ");
+                                String newName = scan.nextLine();
+                                System.out.print("Enter New Specialty: ");
+                                String newSpec = scan.nextLine();
+                                instructorRegistration.updateInstructor(new Instructor(upID, newName, newSpec));
+                            } else {
+                                System.out.println("Error: Instructor ID [" + upID + "] not found.");
+                            }
+                            break;
+                        case 4:
+                            System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
+                            System.out.println("\nRemove Instructor.\n");
+                            instructorRegistration.getAllInstructors().forEach(System.out::println);
+                            System.out.print("\nEnter Instructor ID to Remove: ");
+                            String remID = scan.nextLine();
+                            instructorRegistration.removeInstructor(remID);
+                            break;
+                        case 5:
                             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────\n");
                             System.out.println("\nAssign Instructor to Section\n");
                             instructorRegistration.getAllInstructors().forEach(System.out::println);
@@ -147,7 +175,7 @@ public class Main {
                                 System.out.println("Instructor not found.");
                             }
                             break;
-                        case 4:
+                        case 6:
                             System.out.println("\nShalom!");
                             break;
                         default:
