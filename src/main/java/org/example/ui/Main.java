@@ -1,9 +1,10 @@
 package org.example.ui;
 
 import org.example.Entities.*;
-import org.example.Exceptions.DuplicateIdException;
 import org.example.Implementations.*;
 import org.example.Interfaces.*;
+import org.example.Exceptions.InvalidIdFormatException;
+import org.example.Exceptions.DuplicateIdException;
 import org.example.Exceptions.SectionFullException;
 
 import java.util.InputMismatchException;
@@ -303,7 +304,7 @@ public class Main {
             } catch (InputMismatchException e) {
                 System.out.println("\nPlease enter a number, try again.");
                 scan.nextLine();
-            } catch (IllegalArgumentException e) {
+            } catch (InvalidIdFormatException e) {
                 System.out.println("\nError. " + e.getMessage());
             } catch (DuplicateIdException e) {
                 System.out.println("\nDuplicate Entry." + e.getMessage());
