@@ -39,11 +39,17 @@ public class Student extends Person{
 
     @Override
     public String toString() {
+        String courseNames = enrolledCourses.isEmpty() ? "None" :
+                enrolledCourses.stream()
+                        .map(Course::getCourseName)
+                        .reduce((a, b) -> a + ", " + b)
+                        .orElse("None");
         return "\n" +
                 "  [ STUDENT PROFILE ]\n" +
                 "  ID      : " + super.getID() + "\n" +
                 "  Name    : " + super.getName() + "\n" +
                 "  Program : " + program + "\n" +
+                "  Courses : " + courseNames + "\n" +
                 "  ───────────────────────────";
     }
 }
