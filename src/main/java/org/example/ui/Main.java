@@ -6,6 +6,7 @@ import org.example.Interfaces.*;
 import org.example.Exceptions.InvalidIdFormatException;
 import org.example.Exceptions.DuplicateIdException;
 import org.example.Exceptions.SectionFullException;
+import org.example.Exceptions.InvalidPaymentAmountException;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -356,6 +357,7 @@ public class Main {
                         System.out.print("\n_______________________________");
                         studentRegistration.getAllStudents().forEach(System.out::println);
                         System.out.print("\n_______________________________");
+
                         System.out.print("\nEnter Student ID for Payment: ");
                         String sidPay = scan.nextLine();
                         Student sPay = studentRegistration.getStudentById(sidPay);
@@ -363,11 +365,21 @@ public class Main {
                         if (sPay != null) {
                             double total = feePayment.calculateTotalFee(courseRegistration.getAllCourses());
                             TuitionFeePayment record = new TuitionFeePayment(total);
+                            System.out.println("\nStudent: " + sPay.getName());
+                            System.out.println("Courses Enrolled: " + sPay.getEnrolledCourses().size());
                             System.out.println("Total Fee: " + total);
-                            System.out.print("Enter Payment Amount: ");
-                            double amt = scan.nextDouble();
-                            feePayment.makePayment(record, amt);
-                            feePayment.displayPaymentStatus(record);
+                            try {
+                                System.out.print("Enter Payment Amount: ");
+                                double amt = scan.nextDouble();
+                                scan.nextLine(); // Clear the buffer after nextDouble()
+                                feePayment.makePayment(record, amt);
+                                feePayment.displayPaymentStatus(record);
+                            } catch (InvalidPaymentAmountException e) {
+                                System.out.println("\nPAYMENT ERROR: " + e.getMessage());
+                            } catch (java.util.InputMismatchException e) {
+                                System.out.println("\nPlease enter a numeric amount.");
+                                scan.nextLine();
+                            }
                         } else {
                             System.out.println("Student not found.");
                         }

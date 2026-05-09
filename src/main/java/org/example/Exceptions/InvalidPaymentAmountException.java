@@ -1,7 +1,7 @@
 package org.example.Exceptions;
 
-public class InvalidPaymentAmountException extends RuntimeException {
-  public InvalidPaymentAmountException(String message) {
-    super(message);
-  }
+public class InvalidPaymentAmountException extends Exception {
+    public InvalidPaymentAmountException(String message) {
+        super(message);
+    }
 }
