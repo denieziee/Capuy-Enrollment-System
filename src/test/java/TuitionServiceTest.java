@@ -32,8 +32,7 @@ public class TuitionServiceTest {
         // ACT: Paying 1500 on a 1000 debt
         tuitionService.makePayment(paymentRecord, 1500.0);
 
-        // ASSERT: 
-        // We check for EXACTLY 0.0. If your logic is correct, it won't be -500.0.
+        // ASSERT:
         assertEquals(0.0, paymentRecord.getRemainingBalance(),
                 "Balance should be capped at 0.0, not negative.");
     }
@@ -45,7 +44,6 @@ public class TuitionServiceTest {
         TuitionFeePayment paymentRecord = new TuitionFeePayment(1000.0);
 
         tuitionService.makePayment(paymentRecord, 0.0);
-
         assertEquals(1000.0, paymentRecord.getRemainingBalance());
     }
 }
