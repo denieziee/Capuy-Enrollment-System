@@ -43,7 +43,7 @@ public class StudentServiceImpl implements IStudentService {
         } if (found) {
             System.out.println("Success: Student record updated.");
         } else {
-            System.out.println("Error: Cannot update. Student ID [" + student.getID() + "] does not exist.");
+            System.out.println("Error: Cannot update. Student ID does not exist.");
         }
     }
 
@@ -51,9 +51,9 @@ public class StudentServiceImpl implements IStudentService {
     public void removeStudent(String studentId) {
         boolean removed = studentList.removeIf(s -> s.getID().equals(studentId));
         if (removed) {
-            System.out.println("Student ID [" + studentId + "] removed.");
+            System.out.println("Student ID removed.");
         } else {
-            System.out.println("Error: Student ID " + studentId + " not found.");
+            System.out.println("Error: Student ID not found.");
         }
     }
 
