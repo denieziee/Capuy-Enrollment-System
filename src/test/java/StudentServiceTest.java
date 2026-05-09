@@ -1,3 +1,4 @@
+import org.example.Entities.Course;
 import org.example.Entities.Student;
 import org.example.Exceptions.DuplicateIdException;
 import org.example.Exceptions.InvalidIdFormatException;
@@ -26,9 +27,43 @@ public class StudentServiceTest {
         IStudentService service = new StudentServiceImpl();
         Student badStudent = new Student("ABC", "John Doe", "BSIT");
 
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidIdFormatException.class, () -> {
             service.addStudent(badStudent);
         });
+    }
+
+@Test
+@DisplayName("Should successfully enroll student in a course")
+void testEnrollStudentInCourse() throws DuplicateIdException, InvalidIdFormatException {
+    IStudentService service = new StudentServiceImpl();
+    Student s = new Student("101", "John Doe", "BSIT");
+    Course c = new Course("5001", "Java Programming", "BSIT");
+
+    service.addStudent(s);
+
+    // ACT
+    service.enrollStudentInCourse(s, c);
+
+    // ASSERT
+    assertEquals(1, s.getEnrolledCourses().size());
+    assertEquals("Java Programming", s.getEnrolledCourses().get(0).getCourseName());
+}
+
+    @Test
+    @DisplayName("Should not allow duplicate course enrollment for same student")
+    void testDuplicateCourseEnrollment() throws DuplicateIdException, InvalidIdFormatException {
+        IStudentService service = new StudentServiceImpl();
+        Student s = new Student("102", "Jane Doe", "BSIT");
+        Course c = new Course("5001", "Java Programming", "BSIT");
+
+        service.addStudent(s);
+
+        // ACT
+        service.enrollStudentInCourse(s, c);
+        service.enrollStudentInCourse(s, c); // Try adding again
+
+        // ASSERT
+        assertEquals(1, s.getEnrolledCourses().size(), "Should only contain the course once");
     }
 
     @Test

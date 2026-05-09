@@ -32,7 +32,7 @@ public class CourseServiceTest {
     @DisplayName("Should throw exception if Course ID is not numeric")
     void testNonNumericCourseId() {
         Course badCourse = new Course("JAVA-101", "Intro", "BSIT");
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidIdFormatException.class, () -> {
             courseService.addCourse(badCourse);
         });
     }
@@ -61,7 +61,7 @@ public class CourseServiceTest {
 
         // ACT: Finding the course in the list
         Course result = courseService.getAllCourses().stream()
-                .filter(c -> c.getCourseID().equals("C1"))
+                .filter(c -> c.getCourseID().equals("5001"))
                 .findFirst()
                 .orElse(null);
 
