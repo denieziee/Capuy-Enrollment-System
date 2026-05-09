@@ -357,11 +357,9 @@ public class Main {
                         System.out.print("\n_______________________________");
                         studentRegistration.getAllStudents().forEach(System.out::println);
                         System.out.print("\n_______________________________");
-
                         System.out.print("\nEnter Student ID for Payment: ");
                         String sidPay = scan.nextLine();
                         Student sPay = studentRegistration.getStudentById(sidPay);
-
                         if (sPay != null) {
                             double total = feePayment.calculateTotalFee(courseRegistration.getAllCourses());
                             TuitionFeePayment record = new TuitionFeePayment(total);
@@ -371,7 +369,7 @@ public class Main {
                             try {
                                 System.out.print("Enter Payment Amount: ");
                                 double amt = scan.nextDouble();
-                                scan.nextLine(); // Clear the buffer after nextDouble()
+                                scan.nextLine();
                                 feePayment.makePayment(record, amt);
                                 feePayment.displayPaymentStatus(record);
                             } catch (InvalidPaymentAmountException e) {
