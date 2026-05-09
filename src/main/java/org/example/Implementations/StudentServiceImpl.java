@@ -4,6 +4,7 @@ import org.example.Exceptions.DuplicateIdException;
 import org.example.Exceptions.InvalidIdFormatException;
 import org.example.Interfaces.IStudentService;
 import org.example.Entities.Student;
+import org.example.Entities.Course;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class StudentServiceImpl implements IStudentService {
         } if (found) {
             System.out.println("Success: Student record updated.");
         } else {
-            System.out.println("Error: Cannot update. Student ID [" + student.getID() + "] does not exist.");
+            System.out.println("Error: Cannot update. Student ID does not exist.");
         }
     }
 
@@ -51,9 +52,19 @@ public class StudentServiceImpl implements IStudentService {
     public void removeStudent(String studentId) {
         boolean removed = studentList.removeIf(s -> s.getID().equals(studentId));
         if (removed) {
-            System.out.println("Student ID [" + studentId + "] removed.");
+            System.out.println("Student ID removed.");
         } else {
-            System.out.println("Error: Student ID " + studentId + " not found.");
+            System.out.println("Error: Student ID not found.");
+        }
+    }
+
+    @Override
+    public void enrollStudentInCourse(Student student, Course course) {
+        if (!student.getEnrolledCourses().contains(course)) {
+            student.addCourse(course);
+            System.out.println(student.getName() + " successfully registered for " + course.getCourseName());
+        } else {
+            System.out.println(student.getName() + " is already enrolled in " + course.getCourseName());
         }
     }
 

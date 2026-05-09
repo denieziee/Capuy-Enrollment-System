@@ -15,7 +15,7 @@ public class CourseServiceImpl implements ICourseService {
         if (course.getCourseID() == null || course.getCourseID().trim().isEmpty()) {
             throw new InvalidIdFormatException("Course ID cannot be empty.");
         } if (!course.getCourseID().matches("\\d+")) {
-            throw new InvalidIdFormatException("Course ID [" + course.getCourseID() + "] must be numeric.");
+            throw new InvalidIdFormatException("Course ID must be numeric.");
         }
         for (Course c : courseList) {
             if (c.getCourseID().equalsIgnoreCase(course.getCourseID())) {
@@ -30,20 +30,20 @@ public class CourseServiceImpl implements ICourseService {
         for (int i = 0; i < courseList.size(); i++) {
             if (courseList.get(i).getCourseID().equalsIgnoreCase(updatedCourse.getCourseID())) {
                 courseList.set(i, updatedCourse);
-                System.out.println("Course [" + updatedCourse.getCourseID() + "] updated.");
+                System.out.println("Course updated.");
                 return;
             }
         }
-        System.out.println("Error: Course ID " + updatedCourse.getCourseID() + " not found.");
+        System.out.println("Error: Course ID not found.");
     }
 
     @Override
     public void removeCourse(String courseId) {
         boolean removed = courseList.removeIf(c -> c.getCourseID().equalsIgnoreCase(courseId));
         if (removed) {
-            System.out.println("Course [" + courseId + "] removed from system.");
+            System.out.println("Course removed from system.");
         } else {
-            System.out.println("Error: Course ID " + courseId + " not found.");
+            System.out.println("Error: Course ID not found.");
         }
     }
 

@@ -6,15 +6,15 @@ import org.example.Interfaces.*;
 import org.example.Exceptions.InvalidIdFormatException;
 import org.example.Exceptions.DuplicateIdException;
 import org.example.Exceptions.SectionFullException;
-
 import java.util.InputMismatchException;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     static Scanner scan = new Scanner(System.in);
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws DuplicateIdException, InvalidIdFormatException {
         // Services
         IStudentService studentRegistration = new StudentServiceImpl();
         IInstructorService instructorRegistration = new InstructorServiceImpl();
@@ -24,6 +24,8 @@ public class Main {
 
         // Hierarchy Setup
         Department citeDept = new Department("CITE DEPARTMENT");
+        Section bsitIT2A = new Section("BSIT-IT2A", 2);
+        citeDept.getSections().add(bsitIT2A);
         Section bsitIT2C = new Section("BSIT-IT2C", 2);
         citeDept.getSections().add(bsitIT2C);
 
@@ -167,11 +169,27 @@ public class Main {
                             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────\n");
                             System.out.println("\nAssign Instructor to Section\n");
                             instructorRegistration.getAllInstructors().forEach(System.out::println);
-                            System.out.print("\nEnter Instructor ID to Assign: ");
+
+                            System.out.print("\nEnter Instructor ID: ");
                             String targetID = scan.nextLine();
                             Instructor targetInst = instructorRegistration.getInstructorDetails(targetID);
+
                             if (targetInst != null) {
-                                instructorRegistration.assignInstructorToSection(targetInst, bsitIT2C);
+                                System.out.println("\nSelect Section:");
+                                for (int i = 0; i < citeDept.getSections().size(); i++) {
+                                    System.out.println((i + 1) + ". " + citeDept.getSections().get(i).getSectionName());
+                                }
+                                System.out.print("Choice: ");
+                                int secChoice = scan.nextInt();
+                                scan.nextLine();
+
+                                if (secChoice > 0 && secChoice <= citeDept.getSections().size()) {
+                                    Section selectedSection = citeDept.getSections().get(secChoice - 1);
+                                    instructorRegistration.assignInstructorToSection(targetInst, selectedSection);
+                                    System.out.println("Success: " + targetInst.getName() + " assigned to " + selectedSection.getSectionName());
+                                } else {
+                                    System.out.println("Invalid Section Selection.");
+                                }
                             } else {
                                 System.out.println("Instructor not found.");
                             }
@@ -193,7 +211,7 @@ public class Main {
                             "3. Update Course\n" +
                             "4. Remove Course\n" +
                             "5. Back\n" +
-                            "Answer: ");
+                            "★ Answer ★ : ");
                     int InputCourseReg = scan.nextInt();
                     scan.nextLine();
                     switch (InputCourseReg) {
@@ -244,33 +262,76 @@ public class Main {
                 } else if (input1 == 4) {
                     System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                     System.out.print("\nDepartment:\n" +
-                            "1. Enroll Student in BSIT-IT2C\n" +
-                            "2. View Department Hierarchy\n" +
-                            "Answer: ");
+                            "1. Enroll Student to Section\n" +
+                            "2. Register Student for Course\n" +
+                            "3. View Department Hierarchy\n" +
+                            "★ Answer ★ : ");
                     int InputEnroll = scan.nextInt();
                     scan.nextLine();
                     if (InputEnroll == 1) {
                         System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                        System.out.println("Available Students:\n");
+                        System.out.println("\nStudent Enrollment:");
                         studentRegistration.getAllStudents().forEach(System.out::println);
                         System.out.print("\nEnter Student ID: ");
                         String sid = scan.nextLine();
                         Student s = studentRegistration.getStudentById(sid);
+
                         if (s != null) {
-                            try {
-                                enrollmentService.enrollStudentInSection(s, bsitIT2C);
-                            } catch (SectionFullException e) {
-                                System.out.println(e.getMessage());
+                            System.out.println("\nSelect Section to Enroll In:");
+                            for (int i = 0; i < citeDept.getSections().size(); i++) {
+                                Section sec = citeDept.getSections().get(i);
+                                System.out.println((i + 1) + ". " + sec.getSectionName() + " (Capacity: " + sec.getEnrolledStudents().size() + "/" + sec.getMaxCapacity() + ")");
+                            }
+                            System.out.print("★ Answer ★ : ");
+                            int secChoice = scan.nextInt();
+                            scan.nextLine();
+
+                            if (secChoice > 0 && secChoice <= citeDept.getSections().size()) {
+                                Section selectedSec = citeDept.getSections().get(secChoice - 1);
+                                try {
+                                    enrollmentService.enrollStudentInSection(s, selectedSec);
+                                    System.out.println(s.getName() + " enrolled in " + selectedSec.getSectionName());
+                                } catch (SectionFullException e) {
+                                    System.out.println(e.getMessage());
+                                }
+                            } else {
+                                System.out.println("Invalid Section.");
                             }
                         } else {
-                            System.out.println("Student not found.");
+                                    System.out.println("Student not found.");
+                            }
                         }
-                    } else if (InputEnroll == 2) {
-                        System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                        enrollmentService.viewDepartmentHierarchy(citeDept);
+                    if (InputEnroll == 2) {
+                        System.out.println("\n--- Course Registration ---");
+                        // 1. Pick Student
+                        studentRegistration.getAllStudents().forEach(System.out::println);
+                        System.out.print("Enter Student ID: ");
+                        String sid = scan.nextLine();
+                        Student s = studentRegistration.getStudentById(sid);
+
+                        if (s != null) {
+                            // 2. Pick Course from the registered list
+                            System.out.println("\nAvailable Courses:");
+                            List<Course> allCourses = courseRegistration.getAllCourses();
+                            for (int i = 0; i < allCourses.size(); i++) {
+                                System.out.println((i + 1) + ". " + allCourses.get(i).getCourseName());
+                            }
+                            System.out.print("Choice: ");
+                            int choice = scan.nextInt();
+                            scan.nextLine();
+
+                            if (choice > 0 && choice <= allCourses.size()) {
+                                enrollmentService.enrollStudentInCourse(s, allCourses.get(choice - 1));
+                            }
+                        }
                     }
 
-                } else if (input1 == 5) {
+                    else if (InputEnroll == 3) {
+                    System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
+                    enrollmentService.viewDepartmentHierarchy(citeDept);
+                    }
+
+                }   else if (input1 == 5) {
                     System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                     System.out.print("\n⋆⭒˚.⋆ Tuition Fee Payment ⋆⭒˚.⋆\n");
                     System.out.print("\nList of Students.");
@@ -299,13 +360,13 @@ public class Main {
 
                 } else {
                     System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                    System.out.println("\nError: Invalid Selection.\n");
+                    System.out.println("\ninvalid Selection.\n");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("\nPlease enter a number, try again.");
                 scan.nextLine();
             } catch (InvalidIdFormatException e) {
-                System.out.println("\nError. " + e.getMessage());
+                System.out.println("\n"+ e.getMessage());
             } catch (DuplicateIdException e) {
                 System.out.println("\nDuplicate Entry." + e.getMessage());
             } catch (Exception e) {

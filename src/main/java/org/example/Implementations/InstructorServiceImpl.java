@@ -16,7 +16,7 @@ public class InstructorServiceImpl implements IInstructorService {
         if (instructor.getID() == null || instructor.getID().trim().isEmpty()) {
             throw new InvalidIdFormatException("Instructor ID cannot be empty.");
         } if (!instructor.getID().matches("\\d+")) {
-            throw new InvalidIdFormatException("Instructor ID [" + instructor.getID() + "] must be numeric.");
+            throw new InvalidIdFormatException("Instructor ID must be numeric.");
         }
         for (Instructor i : instructorList) {
             if (i.getID().equalsIgnoreCase(instructor.getID())) {

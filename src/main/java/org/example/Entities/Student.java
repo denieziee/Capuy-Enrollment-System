@@ -1,7 +1,16 @@
 package org.example.Entities;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Student extends Person{
     private String program;
+    private List<Course> enrolledCourses = new ArrayList<>();
+
+    public void addCourse(Course course) {
+        this.enrolledCourses.add(course);
+    } public List<Course> getEnrolledCourses() {
+        return enrolledCourses;
+    }
 
     public Student(){
         super();
@@ -30,11 +39,17 @@ public class Student extends Person{
 
     @Override
     public String toString() {
+        String courseNames = enrolledCourses.isEmpty() ? "None" :
+                enrolledCourses.stream()
+                        .map(Course::getCourseName)
+                        .reduce((a, b) -> a + ", " + b)
+                        .orElse("None");
         return "\n" +
                 "  [ STUDENT PROFILE ]\n" +
                 "  ID      : " + super.getID() + "\n" +
                 "  Name    : " + super.getName() + "\n" +
                 "  Program : " + program + "\n" +
+                "  Courses : " + courseNames + "\n" +
                 "  ───────────────────────────";
     }
 }
