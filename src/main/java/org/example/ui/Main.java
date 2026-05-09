@@ -266,6 +266,7 @@ public class Main {
                             "2. Enroll Student to Section\n" +
                             "3. Register Student for Course\n" +
                             "4. View Department Hierarchy\n" +
+                            "5. Back\n" +
                             "★ Answer ★ : ");
                     int InputDept = scan.nextInt();
                     scan.nextLine();
@@ -284,10 +285,10 @@ public class Main {
                             System.out.println("\nStudent Enrollment:");
                             studentRegistration.getAllStudents().forEach(System.out::println);
                             System.out.print("\nEnter Student ID: ");
-                            String sid = scan.nextLine();
-                            Student s = studentRegistration.getStudentById(sid);
+                            String sidSec = scan.nextLine();
+                            Student sSec = studentRegistration.getStudentById(sidSec);
 
-                            if (s != null) {
+                            if (sSec != null) {
                                 System.out.println("\nSelect Section to Enroll In:");
                                 for (int i = 0; i < citeDept.getSections().size(); i++) {
                                     Section sec = citeDept.getSections().get(i);
@@ -300,8 +301,8 @@ public class Main {
                                 if (secChoice > 0 && secChoice <= citeDept.getSections().size()) {
                                     Section selectedSec = citeDept.getSections().get(secChoice - 1);
                                     try {
-                                        enrollmentService.enrollStudentInSection(s, selectedSec);
-                                        System.out.println(s.getName() + " enrolled in " + selectedSec.getSectionName());
+                                        enrollmentService.enrollStudentInSection(sSec, selectedSec);
+                                        System.out.println(sSec.getName() + " enrolled in " + selectedSec.getSectionName());
                                     } catch (SectionFullException e) {
                                         System.out.println(e.getMessage());
                                     }
@@ -317,10 +318,10 @@ public class Main {
                             // 1. Pick Student
                             studentRegistration.getAllStudents().forEach(System.out::println);
                             System.out.print("Enter Student ID: ");
-                            String sid = scan.nextLine();
-                            Student s = studentRegistration.getStudentById(sid);
+                            String sidCourse = scan.nextLine();
+                            Student sCourse = studentRegistration.getStudentById(sidCourse);
 
-                            if (s != null) {
+                            if (sCourse != null) {
                                 // 2. Pick Course from the registered list
                                 System.out.println("\nAvailable Courses:");
                                 List<Course> allCourses = courseRegistration.getAllCourses();
@@ -332,39 +333,47 @@ public class Main {
                                 scan.nextLine();
 
                                 if (choice > 0 && choice <= allCourses.size()) {
-                                    enrollmentService.enrollStudentInCourse(s, allCourses.get(choice - 1));
+                                    enrollmentService.enrollStudentInCourse(sCourse, allCourses.get(choice - 1));
                                 }
                             }
                         case 4:
                             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                             enrollmentService.viewDepartmentHierarchy(citeDept);
+                            break;
                         case 5:
-                            System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                            System.out.print("\n⋆⭒˚.⋆ Tuition Fee Payment ⋆⭒˚.⋆\n");
-                            System.out.print("\nList of Students.");
-                            System.out.print("\n_______________________________");
-                            studentRegistration.getAllStudents().forEach(System.out::println);
-                            System.out.print("\n_______________________________");
-                            System.out.print("\nEnter Student ID for Payment: ");
-                            String sid = scan.nextLine();
-                            Student s = studentRegistration.getStudentById(sid);
-
-                            if (s != null) {
-                                double total = feePayment.calculateTotalFee(courseRegistration.getAllCourses());
-                                TuitionFeePayment record = new TuitionFeePayment(total);
-                                System.out.println("Total Fee: " + total);
-                                System.out.print("Enter Payment Amount: ");
-                                double amt = scan.nextDouble();
-                                feePayment.makePayment(record, amt);
-                                feePayment.displayPaymentStatus(record);
-                            } else {
-                                System.out.println("Student not found.");
-                            }
-                        case 6:
-                            System.out.println("\nExiting System...");
+                            System.out.println("\nShalom!");
+                            break;
+                        default:
+                            System.out.println("Error.");
                             break;
                     }
-                    }
+                } else if (input1 == 5) {
+                        System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
+                        System.out.print("\n⋆⭒˚.⋆ Tuition Fee Payment ⋆⭒˚.⋆\n");
+                        System.out.print("\nList of Students.");
+                        System.out.print("\n_______________________________");
+                        studentRegistration.getAllStudents().forEach(System.out::println);
+                        System.out.print("\n_______________________________");
+                        System.out.print("\nEnter Student ID for Payment: ");
+                        String sidPay = scan.nextLine();
+                        Student sPay = studentRegistration.getStudentById(sidPay);
+
+                        if (sPay != null) {
+                            double total = feePayment.calculateTotalFee(courseRegistration.getAllCourses());
+                            TuitionFeePayment record = new TuitionFeePayment(total);
+                            System.out.println("Total Fee: " + total);
+                            System.out.print("Enter Payment Amount: ");
+                            double amt = scan.nextDouble();
+                            feePayment.makePayment(record, amt);
+                            feePayment.displayPaymentStatus(record);
+                        } else {
+                            System.out.println("Student not found.");
+                        }
+                } else if (input1 == 6) {
+                    System.out.println("\nExiting System...");
+                    break;
+                }
+
             } catch (InputMismatchException e) {
                 System.out.println("\nPlease enter a number, try again.");
                 scan.nextLine();
