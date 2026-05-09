@@ -167,13 +167,29 @@ public class Main {
                             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────\n");
                             System.out.println("\nAssign Instructor to Section\n");
                             instructorRegistration.getAllInstructors().forEach(System.out::println);
-                            System.out.print("\nEnter Instructor ID to Assign: ");
+
+                            System.out.print("\nEnter Instructor ID: ");
                             String targetID = scan.nextLine();
                             Instructor targetInst = instructorRegistration.getInstructorDetails(targetID);
+
                             if (targetInst != null) {
-                                instructorRegistration.assignInstructorToSection(targetInst, bsitIT2C);
+                                System.out.println("\nSelect Section:");
+                                for (int i = 0; i < citeDept.getSections().size(); i++) {
+                                    System.out.println((i + 1) + ". " + citeDept.getSections().get(i).getSectionName());
+                                }
+                                System.out.print("Choice: ");
+                                int secChoice = scan.nextInt();
+                                scan.nextLine();
+
+                                if (secChoice > 0 && secChoice <= citeDept.getSections().size()) {
+                                    Section selectedSection = citeDept.getSections().get(secChoice - 1);
+                                    instructorRegistration.assignInstructorToSection(targetInst, selectedSection);
+                                    System.out.println("✅ Success: " + targetInst.getName() + " assigned to " + selectedSection.getSectionName());
+                                } else {
+                                    System.out.println("🛑 Invalid Section Selection.");
+                                }
                             } else {
-                                System.out.println("Instructor not found.");
+                                System.out.println("🛑 Instructor not found.");
                             }
                             break;
                         case 6:
