@@ -12,5 +12,5 @@ public interface IInstructorService {
     Instructor getInstructorDetails(String instructorId);
     List<Instructor> getAllInstructors();
     void updateInstructor(Instructor instructor);
-    void deleteInstructor(Instructor instructor);
+    void removeInstructor(String instructorId);
 }
