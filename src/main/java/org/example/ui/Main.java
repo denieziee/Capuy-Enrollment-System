@@ -6,15 +6,15 @@ import org.example.Interfaces.*;
 import org.example.Exceptions.InvalidIdFormatException;
 import org.example.Exceptions.DuplicateIdException;
 import org.example.Exceptions.SectionFullException;
-
 import java.util.InputMismatchException;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     static Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) throws DuplicateIdException, InvalidIdFormatException {
-
         // Services
         IStudentService studentRegistration = new StudentServiceImpl();
         IInstructorService instructorRegistration = new InstructorServiceImpl();
@@ -263,7 +263,8 @@ public class Main {
                     System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                     System.out.print("\nDepartment:\n" +
                             "1. Enroll Student to Section\n" +
-                            "2. View Department Hierarchy\n" +
+                            "2. Register Student for Course\n" +
+                            "3. View Department Hierarchy\n" +
                             "★ Answer ★ : ");
                     int InputEnroll = scan.nextInt();
                     scan.nextLine();
@@ -300,8 +301,32 @@ public class Main {
                                     System.out.println("Student not found.");
                             }
                         }
+                    if (InputEnroll == 2) {
+                        System.out.println("\n--- Course Registration ---");
+                        // 1. Pick Student
+                        studentRegistration.getAllStudents().forEach(System.out::println);
+                        System.out.print("Enter Student ID: ");
+                        String sid = scan.nextLine();
+                        Student s = studentRegistration.getStudentById(sid);
 
-                    else if (InputEnroll == 2) {
+                        if (s != null) {
+                            // 2. Pick Course from the registered list
+                            System.out.println("\nAvailable Courses:");
+                            List<Course> allCourses = courseRegistration.getAllCourses();
+                            for (int i = 0; i < allCourses.size(); i++) {
+                                System.out.println((i + 1) + ". " + allCourses.get(i).getCourseName());
+                            }
+                            System.out.print("Choice: ");
+                            int choice = scan.nextInt();
+                            scan.nextLine();
+
+                            if (choice > 0 && choice <= allCourses.size()) {
+                                enrollmentService.enrollStudentInCourse(s, allCourses.get(choice - 1));
+                            }
+                        }
+                    }
+
+                    else if (InputEnroll == 3) {
                     System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                     enrollmentService.viewDepartmentHierarchy(citeDept);
                     }
