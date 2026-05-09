@@ -1,15 +1,27 @@
+import org.example.Entities.Course;
 import org.example.Entities.TuitionFeePayment;
+import org.example.Exceptions.InvalidPaymentAmountException;
 import org.example.Implementations.TuitionServiceImpl;
 import org.example.Interfaces.ITuitionService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TuitionServiceTest {
+    private ITuitionService tuitionService;
+
+    @BeforeEach
+    void setUp() {
+        tuitionService = new TuitionServiceImpl();
+    }
 
     @Test
     @DisplayName("Should correctly subtract payment from balance")
-    void testRemainingBalanceAfterPayment() {
+    void testRemainingBalanceAfterPayment() throws InvalidPaymentAmountException {
         // ARRANGE
         ITuitionService tuitionService = new TuitionServiceImpl();
         TuitionFeePayment paymentRecord = new TuitionFeePayment(5000.0);
@@ -29,21 +41,47 @@ public class TuitionServiceTest {
         ITuitionService tuitionService = new TuitionServiceImpl();
         TuitionFeePayment paymentRecord = new TuitionFeePayment(1000.0);
 
-        // ACT: Paying 1500 on a 1000 debt
-        tuitionService.makePayment(paymentRecord, 1500.0);
-
-        // ASSERT:
-        assertEquals(0.0, paymentRecord.getRemainingBalance(),
-                "Balance should be capped at 0.0, not negative.");
+        // ACT & ASSER
+        assertThrows(InvalidPaymentAmountException.class, () -> {
+            tuitionService.makePayment(paymentRecord, 1500.0);
+        });;
     }
 
     @Test
     @DisplayName("Should not change balance if payment is zero")
     void testZeroPaymentDoesNotChangeBalance() {
-        ITuitionService tuitionService = new TuitionServiceImpl();
+        TuitionFeePayment paymentRecord = new TuitionFeePayment(1000.0);
+        assertThrows(InvalidPaymentAmountException.class, () -> {
+            tuitionService.makePayment(paymentRecord, 0.0);
+        });
+    }
+
+    @Test
+    @DisplayName("Should throw exception if payment is zero or negative")
+    void testInvalidPaymentThrowsException() {
         TuitionFeePayment paymentRecord = new TuitionFeePayment(1000.0);
 
-        tuitionService.makePayment(paymentRecord, 0.0);
-        assertEquals(1000.0, paymentRecord.getRemainingBalance());
+        // Test Zero
+        assertThrows(InvalidPaymentAmountException.class, () -> {
+            tuitionService.makePayment(paymentRecord, 0.0);
+        });
+
+        // Test Negative
+        assertThrows(InvalidPaymentAmountException.class, () -> {
+            tuitionService.makePayment(paymentRecord, -100.0);
+        });
+    }
+
+    @Test
+    @DisplayName("Should calculate tuition correctly based on course count")
+    void testCalculateTotalFee() {
+        List<Course> courses = new ArrayList<>();
+        courses.add(new Course("101", "Java", "IT"));
+        courses.add(new Course("102", "Python", "IT"));
+
+        double total = tuitionService.calculateTotalFee(courses);
+
+        // 2 courses * 1500 = 3000
+        assertEquals(3000.0, total);
     }
 }
