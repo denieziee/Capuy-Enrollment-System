@@ -19,10 +19,19 @@ public class CourseServiceTest {
     }
 
     @Test
+    @DisplayName("Should throw exception if Course ID is not numeric")
+    void testNonNumericCourseId() {
+        Course badCourse = new Course("JAVA-101", "Intro", "BSIT");
+        assertThrows(IllegalArgumentException.class, () -> {
+            courseService.addCourse(badCourse);
+        });
+    }
+
+    @Test
     @DisplayName("Should add and list all courses")
     void testAddAndGetAllCourses() throws DuplicateIdException {
-        Course c1 = new Course("CS101", "Intro to Java", "BSIT");
-        Course c2 = new Course("CS102", "Data Structures", "BSIT");
+        Course c1 = new Course("5001", "Intro to Java", "BSIT");
+        Course c2 = new Course("5002", "Data Structures", "BSIT");
 
         courseService.addCourse(c1);
         courseService.addCourse(c2);
@@ -34,10 +43,10 @@ public class CourseServiceTest {
     @Test
     @DisplayName("Should successfully update course details")
     void testUpdateCourse() throws DuplicateIdException {
-        Course original = new Course("C1", "Old Name", "BSIT");
+        Course original = new Course("5001", "Old Name", "BSIT");
         courseService.addCourse(original);
 
-        Course updated = new Course("C1", "New Name", "BSCS");
+        Course updated = new Course("5001", "New Name", "BSCS");
         courseService.updateCourse(updated);
 
         // ACT: Finding the course in the list
