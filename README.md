@@ -16,12 +16,43 @@
 
 ```text
 src/
-├── Entities/        # Data models (Student, Course, Section, etc.)
-├── Exceptions/      # Custom Exception classes
-├── Interfaces/      # Service definitions
-├── Implementations/ # Business logic logic
-└── ui/              # Main console interface
-
+├──main/
+  ├──java/
+    ├── Entities/        # Data models (Student, Course, Section, etc.)
+      ├──Couse
+      ├──Department
+      ├──Instructor
+      ├──Person
+      ├──Section
+      ├──Student
+      ├──TuitionFeePayment
+    ├── Exceptions/      # Custom Exception classes
+      ├──DuplicateIdException
+      ├──InvalidIdFormatException
+      ├──InvalidPaymentAmountException
+      ├──SectionFullException
+    ├── Implementations/ # Business logic logic
+      ├──CourseServiceImpl
+      ├──EnrollmentServiceImpl
+      ├──InstructorServiceImpl
+      ├──StudentServiceImpl
+      ├──TuitionServiceImpl
+    ├── Interfaces/      # Service definitions
+      ├──ICourseService
+      ├──IEnrollmentService
+      ├──IInstructorService
+      ├──IStudentService
+      ├──ITuitionService
+    └── ui/              # Main console interface
+      ├──Main
+  ├──test/
+    ├──java/
+      ├──CourseServiceTest/
+      ├──EnrollmentServiceTest/
+      ├──InstructorServiceTest/
+      ├──StudentServiceTest/
+      ├──TuitionServiceTest/
+├──README.md
 ```
 ---
 
