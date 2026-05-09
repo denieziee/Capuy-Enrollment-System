@@ -11,6 +11,9 @@ public class StudentServiceImpl implements IStudentService {
 
     @Override
     public void addStudent(Student student) throws DuplicateIdException {
+        if (!student.getID().matches("\\d+")) {
+            throw new IllegalArgumentException("ID must contain numbers only!");
+        }
         for (Student s : studentList) {
             if (s.getID().equalsIgnoreCase(student.getID())) {
                 throw new DuplicateIdException("ID is already exists!");

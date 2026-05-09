@@ -22,7 +22,7 @@ public class Main {
         IEnrollmentService enrollmentService = new EnrollmentServiceImpl();
 
         // Hierarchy Setup
-        Department citeDept = new Department("College of Information Technology and Engineering");
+        Department citeDept = new Department("CITE DEPARTMENT");
         Section bsitIT2C = new Section("BSIT-IT2C", 2);
         citeDept.getSections().add(bsitIT2C);
 
@@ -92,7 +92,7 @@ public class Main {
                             break;
                         case 4:
                             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                            System.out.println("Remove Student.\n");
+                            System.out.println("\nRemove Student.");
                             studentRegistration.getAllStudents().forEach(System.out::println);
                             System.out.print("\nEnter Student ID to Remove: ");
                             String delStudID = scan.nextLine();
@@ -249,6 +249,7 @@ public class Main {
                     int InputEnroll = scan.nextInt();
                     scan.nextLine();
                     if (InputEnroll == 1) {
+                        System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                         System.out.println("Available Students:\n");
                         studentRegistration.getAllStudents().forEach(System.out::println);
                         System.out.print("\nEnter Student ID: ");
@@ -264,6 +265,7 @@ public class Main {
                             System.out.println("Student not found.");
                         }
                     } else if (InputEnroll == 2) {
+                        System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
                         enrollmentService.viewDepartmentHierarchy(citeDept);
                     }
 
