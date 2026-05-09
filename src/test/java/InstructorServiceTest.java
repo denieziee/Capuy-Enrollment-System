@@ -1,6 +1,7 @@
 import org.example.Entities.Instructor;
 import org.example.Entities.Section;
 import org.example.Exceptions.DuplicateIdException;
+import org.example.Exceptions.InvalidIdFormatException;
 import org.example.Implementations.InstructorServiceImpl;
 import org.example.Interfaces.IInstructorService;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,15 +21,15 @@ public class InstructorServiceTest {
     @Test
     @DisplayName("Should throw exception if Instructor ID is not numeric")
     void testNonNumericInstructorId() {
-        Instructor badProf = new Instructor("PROF-ABC", "Dr. Smith");
-        assertThrows(IllegalArgumentException.class, () -> {
+        Instructor badProf = new Instructor("ABC", "Dr. Smith");
+        assertThrows(InvalidIdFormatException.class, () -> {
             instructorService.addInstructor(badProf);
         });
     }
 
     @Test
     @DisplayName("Should successfully add and retrieve an instructor")
-    void testAddInstructor() throws DuplicateIdException {
+    void testAddInstructor() throws DuplicateIdException, InvalidIdFormatException {
         Instructor prof = new Instructor("2001", "Dr. Smith", "Computer Science");
         instructorService.addInstructor(prof);
 
@@ -39,7 +40,7 @@ public class InstructorServiceTest {
 
     @Test
     @DisplayName("Should throw DuplicateIdException when ID already exists")
-    void testDuplicateInstructorId() throws DuplicateIdException {
+    void testDuplicateInstructorId() throws DuplicateIdException, InvalidIdFormatException {
         Instructor prof1 = new Instructor("2001", "Dr. Smith");
         Instructor prof2 = new Instructor("2001", "Prof. Jones");
 
