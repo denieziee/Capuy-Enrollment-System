@@ -179,7 +179,7 @@ public class Main {
                                 for (int i = 0; i < citeDept.getSections().size(); i++) {
                                     System.out.println((i + 1) + ". " + citeDept.getSections().get(i).getSectionName());
                                 }
-                                System.out.print("Choice: ");
+                                System.out.print("★ Answer ★ : ");
                                 int secChoice = scan.nextInt();
                                 scan.nextLine();
 
@@ -274,7 +274,7 @@ public class Main {
                     switch (InputDept) {
                         case 1:
                             System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                            System.out.println("\nAvailable Sections.");
+                            System.out.println("\nAvailable Sections.\n");
                             for (Section sec : citeDept.getSections()) {
                                 System.out.println("• " + sec.getSectionName() + " | Slots: " +
                                         sec.getEnrolledStudents().size() + "/" + sec.getMaxCapacity());
@@ -291,20 +291,19 @@ public class Main {
 
                             if (sSec != null) {
                                 System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                                System.out.println("\nSelect Section to Enroll In:");
+                                System.out.println("\nSelect Section to Enroll In:\n");
                                 for (int i = 0; i < citeDept.getSections().size(); i++) {
                                     Section sec = citeDept.getSections().get(i);
                                     System.out.println((i + 1) + ". " + sec.getSectionName() + " (Capacity: " + sec.getEnrolledStudents().size() + "/" + sec.getMaxCapacity() + ")");
                                 }
                                 System.out.print("★ Answer ★ : ");
                                 int secChoice = scan.nextInt();
-                                scan.nextLine();
 
                                 if (secChoice > 0 && secChoice <= citeDept.getSections().size()) {
                                     Section selectedSec = citeDept.getSections().get(secChoice - 1);
                                     try {
                                         enrollmentService.enrollStudentInSection(sSec, selectedSec);
-                                        System.out.println(sSec.getName() + " enrolled in " + selectedSec.getSectionName());
+                                        //System.out.println(sSec.getName() + " enrolled in " + selectedSec.getSectionName());
                                     } catch (SectionFullException e) {
                                         System.out.println(e.getMessage());
                                     }
@@ -316,7 +315,8 @@ public class Main {
                             }
                             break;
                         case 3:
-                            System.out.println("\n--- Course Registration ---");
+                            System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
+                            System.out.println("\nCourse Registration:");
                             // 1. Pick Student
                             studentRegistration.getAllStudents().forEach(System.out::println);
                             System.out.print("Enter Student ID: ");
@@ -330,7 +330,7 @@ public class Main {
                                 for (int i = 0; i < allCourses.size(); i++) {
                                     System.out.println((i + 1) + ". " + allCourses.get(i).getCourseName());
                                 }
-                                System.out.print("Choice: ");
+                                System.out.print("★ Answer ★ : ");
                                 int choice = scan.nextInt();
                                 scan.nextLine();
 
@@ -346,7 +346,7 @@ public class Main {
                             System.out.println("\nShalom!");
                             break;
                         default:
-                            System.out.println("Error.");
+                            System.out.println("\nError.");
                             break;
                     }
                 } else if (input1 == 5) {
