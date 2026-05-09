@@ -16,35 +16,35 @@
 
 ```text
 src/
-├──main/
-  ├──java/
-    ├── Entities/                              # Data models (Student, Course, Section, etc.)
-      ├──Couse
-      ├──Department
-      ├──Instructor
-      ├──Person
-      ├──Section
-      ├──Student
-      ├──TuitionFeePayment
-    ├── Exceptions/                            # Custom Exception classes
-      ├──DuplicateIdException
-      ├──InvalidIdFormatException
-      ├──InvalidPaymentAmountException
-      ├──SectionFullException
-    ├── Implementations/                       # Business logic logic
-      ├──CourseServiceImpl
-      ├──EnrollmentServiceImpl
-      ├──InstructorServiceImpl
-      ├──StudentServiceImpl
-      ├──TuitionServiceImpl
-    ├── Interfaces/                            # Service definitions
-      ├──ICourseService
-      ├──IEnrollmentService
-      ├──IInstructorService
-      ├──IStudentService
-      ├──ITuitionService
-    └── ui/                                    # Main console interface
-      ├──Main
+  ├──main/
+    ├──java/
+      ├── Entities/                              # Data models (Student, Course, Section, etc.)
+        ├──Couse
+        ├──Department
+        ├──Instructor
+        ├──Person
+        ├──Section
+        ├──Student
+        ├──TuitionFeePayment
+      ├── Exceptions/                            # Custom Exception classes
+        ├──DuplicateIdException
+        ├──InvalidIdFormatException
+        ├──InvalidPaymentAmountException
+        ├──SectionFullException
+      ├── Implementations/                       # Business logic logic
+        ├──CourseServiceImpl
+        ├──EnrollmentServiceImpl
+        ├──InstructorServiceImpl
+        ├──StudentServiceImpl
+        ├──TuitionServiceImpl
+      ├── Interfaces/                            # Service definitions
+        ├──ICourseService
+        ├──IEnrollmentService
+        ├──IInstructorService
+        ├──IStudentService
+        ├──ITuitionService
+      └── ui/                                    # Main console interface
+        ├──Main
   ├──test/
     ├──java/
       ├──CourseServiceTest/
