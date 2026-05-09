@@ -1,4 +1,5 @@
 import org.example.Entities.Course;
+import org.example.Exceptions.InvalidIdFormatException;
 import org.example.Exceptions.DuplicateIdException;
 import org.example.Implementations.CourseServiceImpl;
 import org.example.Interfaces.ICourseService;
@@ -19,6 +20,15 @@ public class CourseServiceTest {
     }
 
     @Test
+    @DisplayName("Should throw InvalidIdFormatException for empty Course ID")
+    void testEmptyCourseId() {
+        Course emptyCourse = new Course("", "Blank", "BSIT");
+        assertThrows(InvalidIdFormatException.class, () -> {
+            courseService.addCourse(emptyCourse);
+        });
+    }
+
+    @Test
     @DisplayName("Should throw exception if Course ID is not numeric")
     void testNonNumericCourseId() {
         Course badCourse = new Course("JAVA-101", "Intro", "BSIT");
@@ -29,7 +39,7 @@ public class CourseServiceTest {
 
     @Test
     @DisplayName("Should add and list all courses")
-    void testAddAndGetAllCourses() throws DuplicateIdException {
+    void testAddAndGetAllCourses() throws DuplicateIdException, InvalidIdFormatException {
         Course c1 = new Course("5001", "Intro to Java", "BSIT");
         Course c2 = new Course("5002", "Data Structures", "BSIT");
 
@@ -37,12 +47,12 @@ public class CourseServiceTest {
         courseService.addCourse(c2);
 
         List<Course> allCourses = courseService.getAllCourses();
-        assertEquals(2, allCourses.size());
+        assertEquals(2, courseService.getAllCourses().size());
     }
 
     @Test
     @DisplayName("Should successfully update course details")
-    void testUpdateCourse() throws DuplicateIdException {
+    void testUpdateCourse() throws DuplicateIdException, InvalidIdFormatException {
         Course original = new Course("5001", "Old Name", "BSIT");
         courseService.addCourse(original);
 
