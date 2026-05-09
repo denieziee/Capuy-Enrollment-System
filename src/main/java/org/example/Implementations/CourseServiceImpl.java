@@ -1,5 +1,6 @@
 package org.example.Implementations;
 
+import org.example.Exceptions.DuplicateIdException;
 import org.example.Interfaces.ICourseService;
 import org.example.Entities.Course;
 import java.util.ArrayList;
@@ -9,9 +10,13 @@ public class CourseServiceImpl implements ICourseService {
     private List<Course> courseList = new ArrayList<>();
 
     @Override
-    public void addCourse(Course course) {
+    public void addCourse(Course course) throws DuplicateIdException {
+        for (Course c : courseList) {
+            if (c.getCourseID().equalsIgnoreCase(course.getCourseID())) {
+                throw new DuplicateIdException("Course already exists!");
+            }
+        }
         courseList.add(course);
-        System.out.println("Course added successfully: " + course.getCourseName());
     }
 
     @Override

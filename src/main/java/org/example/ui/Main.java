@@ -34,7 +34,7 @@ public class Main {
                         "1. Student Registration\n" +
                         "2. Instructor Registration\n" +
                         "3. Course Registration\n" +
-                        "4. Enrollment & Hierarchy\n" +
+                        "4. Department\n" +
                         "5. Tuition Fee Payment\n" +
                         "6. Exit\n" +
                         "★ Answer ★ : ");
@@ -242,7 +242,7 @@ public class Main {
 
                 } else if (input1 == 4) {
                     System.out.print("\n─────────────୨ৎ୨ৎ୨ৎ─────────────");
-                    System.out.print("\nEnrollment & Hierarchy:\n" +
+                    System.out.print("\nDepartment:\n" +
                             "1. Enroll Student in BSIT-IT2C\n" +
                             "2. View Department Hierarchy\n" +
                             "Answer: ");
@@ -302,7 +302,7 @@ public class Main {
                 System.out.println("\nPlease enter a number, try again.");
                 scan.nextLine();
             } catch (DuplicateIdException e) {
-                System.out.println("\nRegistration Error: " + e.getMessage());
+                System.out.println("\nDuplicate Entry." + e.getMessage());
             } catch (Exception e) {
                 System.out.println("\nSomething went wrong: " + e.getLocalizedMessage());
             }

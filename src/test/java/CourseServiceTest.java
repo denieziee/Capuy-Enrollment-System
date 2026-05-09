@@ -1,4 +1,5 @@
 import org.example.Entities.Course;
+import org.example.Exceptions.DuplicateIdException;
 import org.example.Implementations.CourseServiceImpl;
 import org.example.Interfaces.ICourseService;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +20,7 @@ public class CourseServiceTest {
 
     @Test
     @DisplayName("Should add and list all courses")
-    void testAddAndGetAllCourses() {
+    void testAddAndGetAllCourses() throws DuplicateIdException {
         Course c1 = new Course("CS101", "Intro to Java", "BSIT");
         Course c2 = new Course("CS102", "Data Structures", "BSIT");
 
@@ -32,7 +33,7 @@ public class CourseServiceTest {
 
     @Test
     @DisplayName("Should successfully update course details")
-    void testUpdateCourse() {
+    void testUpdateCourse() throws DuplicateIdException {
         Course original = new Course("C1", "Old Name", "BSIT");
         courseService.addCourse(original);
 
@@ -41,7 +42,7 @@ public class CourseServiceTest {
 
         // ACT: Finding the course in the list
         Course result = courseService.getAllCourses().stream()
-                .filter(c -> c.getCourseID().equals("C1")) // Changed to getCourseID()
+                .filter(c -> c.getCourseID().equals("C1"))
                 .findFirst()
                 .orElse(null);
 
