@@ -18,12 +18,21 @@ public class InstructorServiceTest {
     }
 
     @Test
+    @DisplayName("Should throw exception if Instructor ID is not numeric")
+    void testNonNumericInstructorId() {
+        Instructor badProf = new Instructor("PROF-ABC", "Dr. Smith");
+        assertThrows(IllegalArgumentException.class, () -> {
+            instructorService.addInstructor(badProf);
+        });
+    }
+
+    @Test
     @DisplayName("Should successfully add and retrieve an instructor")
     void testAddInstructor() throws DuplicateIdException {
-        Instructor prof = new Instructor("INS-01", "Dr. Smith", "Computer Science");
+        Instructor prof = new Instructor("2001", "Dr. Smith", "Computer Science");
         instructorService.addInstructor(prof);
 
-        Instructor retrieved = instructorService.getInstructorDetails("INS-01");
+        Instructor retrieved = instructorService.getInstructorDetails("2001");
         assertNotNull(retrieved);
         assertEquals("Dr. Smith", retrieved.getName());
     }
@@ -31,8 +40,8 @@ public class InstructorServiceTest {
     @Test
     @DisplayName("Should throw DuplicateIdException when ID already exists")
     void testDuplicateInstructorId() throws DuplicateIdException {
-        Instructor prof1 = new Instructor("INS-01", "Dr. Smith");
-        Instructor prof2 = new Instructor("INS-01", "Prof. Jones");
+        Instructor prof1 = new Instructor("2001", "Dr. Smith");
+        Instructor prof2 = new Instructor("2001", "Prof. Jones");
 
         instructorService.addInstructor(prof1);
 
@@ -44,8 +53,8 @@ public class InstructorServiceTest {
     @Test
     @DisplayName("Should correctly assign instructor to a section")
     void testAssignInstructorToSection() {
-        Instructor prof = new Instructor("INS-01", "Dr. Smith");
-        Section section = new Section("BSIT-2C", 30);
+        Instructor prof = new Instructor("2001", "Dr. Smith");
+        Section section = new Section("BSIT-2C", 2);
 
         instructorService.assignInstructorToSection(prof, section);
 
