@@ -1,6 +1,7 @@
 package org.example.Implementations;
 
 import org.example.Exceptions.DuplicateIdException;
+import org.example.Exceptions.InvalidIdFormatException;
 import org.example.Interfaces.IStudentService;
 import org.example.Entities.Student;
 import java.util.ArrayList;
@@ -10,9 +11,9 @@ public class StudentServiceImpl implements IStudentService {
     private List<Student> studentList = new ArrayList<>();
 
     @Override
-    public void addStudent(Student student) throws DuplicateIdException {
+    public void addStudent(Student student) throws DuplicateIdException, InvalidIdFormatException {
         if (!student.getID().matches("\\d+")) {
-            throw new IllegalArgumentException("ID must contain numbers only!");
+            throw new InvalidIdFormatException("ID must contain numbers only!");
         }
         for (Student s : studentList) {
             if (s.getID().equalsIgnoreCase(student.getID())) {
