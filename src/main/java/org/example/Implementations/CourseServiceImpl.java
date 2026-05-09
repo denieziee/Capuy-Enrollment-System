@@ -1,5 +1,6 @@
 package org.example.Implementations;
 
+import org.example.Exceptions.InvalidIdFormatException;
 import org.example.Exceptions.DuplicateIdException;
 import org.example.Interfaces.ICourseService;
 import org.example.Entities.Course;
@@ -10,7 +11,12 @@ public class CourseServiceImpl implements ICourseService {
     private List<Course> courseList = new ArrayList<>();
 
     @Override
-    public void addCourse(Course course) throws DuplicateIdException {
+    public void addCourse(Course course) throws DuplicateIdException, InvalidIdFormatException {
+        if (course.getCourseID() == null || course.getCourseID().trim().isEmpty()) {
+            throw new InvalidIdFormatException("Course ID cannot be empty.");
+        } if (!course.getCourseID().matches("\\d+")) {
+            throw new InvalidIdFormatException("Course ID [" + course.getCourseID() + "] must be numeric.");
+        }
         for (Course c : courseList) {
             if (c.getCourseID().equalsIgnoreCase(course.getCourseID())) {
                 throw new DuplicateIdException("Course already exists!");

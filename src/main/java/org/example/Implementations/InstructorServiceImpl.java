@@ -1,6 +1,7 @@
 package org.example.Implementations;
 
 import org.example.Exceptions.DuplicateIdException;
+import org.example.Exceptions.InvalidIdFormatException;
 import org.example.Interfaces.IInstructorService;
 import org.example.Entities.Instructor;
 import org.example.Entities.Section;
@@ -11,7 +12,12 @@ public class InstructorServiceImpl implements IInstructorService {
     private List<Instructor> instructorList = new ArrayList<>();
 
     @Override
-    public void addInstructor(Instructor instructor) throws DuplicateIdException {
+    public void addInstructor(Instructor instructor) throws DuplicateIdException, InvalidIdFormatException {
+        if (instructor.getID() == null || instructor.getID().trim().isEmpty()) {
+            throw new InvalidIdFormatException("Instructor ID cannot be empty.");
+        } if (!instructor.getID().matches("\\d+")) {
+            throw new InvalidIdFormatException("Instructor ID [" + instructor.getID() + "] must be numeric.");
+        }
         for (Instructor i : instructorList) {
             if (i.getID().equalsIgnoreCase(instructor.getID())) {
                 throw new DuplicateIdException("ID is already exists!");
