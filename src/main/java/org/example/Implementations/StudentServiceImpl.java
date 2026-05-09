@@ -12,7 +12,9 @@ public class StudentServiceImpl implements IStudentService {
 
     @Override
     public void addStudent(Student student) throws DuplicateIdException, InvalidIdFormatException {
-        if (!student.getID().matches("\\d+")) {
+        if (student.getID() == null || student.getID().trim().isEmpty()) {
+            throw new InvalidIdFormatException("ID cannot be empty.");
+        } if (!student.getID().matches("\\d+")) {
             throw new InvalidIdFormatException("ID must contain numbers only!");
         }
         for (Student s : studentList) {
