@@ -361,7 +361,7 @@ public class Main {
                         String sidPay = scan.nextLine();
                         Student sPay = studentRegistration.getStudentById(sidPay);
                         if (sPay != null) {
-                            double total = feePayment.calculateTotalFee(courseRegistration.getAllCourses());
+                            double total = feePayment.calculateTotalFee(sPay.getEnrolledCourses());
                             TuitionFeePayment record = new TuitionFeePayment(total);
                             System.out.println("\nStudent: " + sPay.getName());
                             System.out.println("Courses Enrolled: " + sPay.getEnrolledCourses().size());
