@@ -4,6 +4,7 @@ import org.example.Exceptions.DuplicateIdException;
 import org.example.Exceptions.InvalidIdFormatException;
 import org.example.Interfaces.IStudentService;
 import org.example.Entities.Student;
+import org.example.Entities.Course;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +55,16 @@ public class StudentServiceImpl implements IStudentService {
             System.out.println("Student ID removed.");
         } else {
             System.out.println("Error: Student ID not found.");
+        }
+    }
+
+    @Override
+    public void enrollStudentInCourse(Student student, Course course) {
+        if (!student.getEnrolledCourses().contains(course)) {
+            student.addCourse(course);
+            System.out.println(student.getName() + " successfully registered for " + course.getCourseName());
+        } else {
+            System.out.println(student.getName() + " is already enrolled in " + course.getCourseName());
         }
     }
 

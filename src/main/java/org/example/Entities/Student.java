@@ -1,7 +1,16 @@
 package org.example.Entities;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Student extends Person{
     private String program;
+    private List<Course> enrolledCourses = new ArrayList<>();
+
+    public void addCourse(Course course) {
+        this.enrolledCourses.add(course);
+    } public List<Course> getEnrolledCourses() {
+        return enrolledCourses;
+    }
 
     public Student(){
         super();

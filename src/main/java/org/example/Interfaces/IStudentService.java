@@ -1,5 +1,6 @@
 package org.example.Interfaces;
 
+import org.example.Entities.Course;
 import org.example.Entities.Student;
 import org.example.Exceptions.DuplicateIdException;
 import org.example.Exceptions.InvalidIdFormatException;
@@ -12,4 +13,5 @@ public interface IStudentService {
     void removeStudent(String studentId);
     List<Student> getAllStudents();
     Student getStudentById(String studentId);
+    void enrollStudentInCourse(Student student, Course course);
 }
