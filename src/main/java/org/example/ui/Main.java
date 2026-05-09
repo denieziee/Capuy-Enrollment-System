@@ -198,7 +198,7 @@ public class Main {
                             System.out.println("\nShalom!");
                             break;
                         default:
-                            System.out.println("Error.");
+                            System.out.println("\nError.");
                             break;
                     }
 
