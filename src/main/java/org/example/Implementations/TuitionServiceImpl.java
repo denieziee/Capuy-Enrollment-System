@@ -28,7 +28,11 @@ public class TuitionServiceImpl implements ITuitionService {
         }
 
         double newBalance = currentBalance - amount;
+        double newTotalPaid = record.getBalancePaid() + amount;
+
         record.setRemainingBalance(newBalance);
+        record.setBalancePaid(newTotalPaid);
+
         System.out.println("Success: Payment of " + amount + " processed.");
     }
 
